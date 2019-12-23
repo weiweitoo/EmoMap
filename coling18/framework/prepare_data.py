@@ -14,6 +14,7 @@ heads_be5 = ['Word','Joy','Anger','Sadness','Fear','Disgust']
 
 #### ENGLISH
 
+# did't use
 def load_anew10():
 	anew = pd.read_csv(cs.anew10, sep = '\t')
 	anew = anew[['Word','ValMn','AroMn','DomMn']]
@@ -130,6 +131,7 @@ def load_imbir16():
 
 # ### GERMAN
 
+# Did't use
 def load_schmidtke14(lower_case=False):
 	schmidtke14=pd.read_excel(cs.schmidtke14)
 	# schmidtke14=schmidtke14[['Word','Valence','Arousal','Dominance']]
@@ -203,7 +205,7 @@ def load_stadthagen17():
 	df.set_index('Word', inplace=True)
 	return df
 
-
+# did't use
 def load_kanske10():
 	with open(cs.kanske10, encoding='cp1252') as f:
 		kanske10=f.readlines()
@@ -239,7 +241,7 @@ def load_vo09():
 
 	return df
 
-
+# Did't use
 def load_guasch15():
 	guasch15=pd.read_excel(cs.guasch15)
 	guasch15=guasch15[['Word','VAL_M', 'ARO_M']]
@@ -247,6 +249,7 @@ def load_guasch15():
 	guasch15.set_index('Word', inplace=True)
 	return guasch15
 
+# Did't use
 def load_moors13():
 	# with open(cs.moors13) as f:
 	# 	moors13=f.readlines()
@@ -259,6 +262,7 @@ def load_moors13():
 	# print(moors13)
 	return moors13
 
+# Did't use
 def load_montefinese14():
 	montefinese14=pd.read_excel(cs.montefinese14, header=1)
 	montefinese14=montefinese14[['Ita_Word', 'M_Val', 'M_Aro', 'M_Dom']]
@@ -266,12 +270,16 @@ def load_montefinese14():
 	montefinese14.set_index('Word', inplace=True)
 	return montefinese14
 
+# Did't use
+
 def load_soares12():
 	soares12=pd.read_excel(cs.soares12, sheetname=1)
 	soares12=soares12[['EP-Word', 'Val-M', 'Arou-M', 'Dom-M']]
 	soares12.columns=heads_vad
 	soares12.set_index('Word', inplace=True)
 	return soares12
+
+# Did't use
 
 def load_sianipar16():
 	sianipar16=pd.read_excel(cs.sianipar16)
@@ -281,6 +289,8 @@ def load_sianipar16():
 	#sianipar16=sianipar16[~sianipar16.index.duplicated(keep='first')]
 	sianipar16=drop_duplicates(sianipar16)
 	return sianipar16
+
+# Did't use
 
 def load_yu16():
 	'''
@@ -294,6 +304,7 @@ def load_yu16():
 	yu16.set_index('Word', inplace=True)
 	return yu16
 
+# Did't use
 def load_yu16_ialp_train_test():
 	train=pd.read_csv(cs.yu16)
 	train=train[['No.', 'Word', 'Valence_Mean', 'Arousal_Mean']]
@@ -309,6 +320,7 @@ def load_yu16_ialp_train_test():
 	train=__format__(train)
 	return train,test
 
+# Did't use
 def load_yao16():
 	'''
 	Yao, Z., Wu, J., Zhang, Y., & Wang, Z. (2016). Norms of valence, arousal, 
@@ -338,6 +350,7 @@ def load_yao16():
 	return yao16
 	#raise NotImplementedError
 
+# Did't use
 def load_monnier14():
 	'''
 	Monnier, C., & Syssau, A. (2014). Affective norms for french words (FAN). 
@@ -350,6 +363,7 @@ def load_monnier14():
 	return monnier14
 	#raise NotImplementedError
 
+# Did't use
 def load_ric13():
 	df=pd.read_excel(cs.ric13, usecols=[0,16, 19, 22, 25, 28],
 						index_col=0,
@@ -360,7 +374,7 @@ def load_ric13():
 	df.index.rename('Word', inplace=True)
 	return df
 
-
+# Did't use
 def load_davidson14():
 	'''
 	Davidson, P., & Innes-Ker, Å. (2014). Valence and arousal norms for Swedish 
@@ -378,7 +392,7 @@ def load_davidson14():
 
 
 
-
+# Did't use
 def load_eilola10():
 	'''
 	Eilola, T. M., & Havelka, J. (2010). Affective norms for 210 British 
@@ -393,6 +407,7 @@ def load_eilola10():
 	return eilola10
 	#raise NotImplementedError
 
+# Did't use
 def load_engelthaler17():
 	'''
 	Engelthaler, T. & Hills, T.T. Behav Res (2017). https://doi.org/10.3758/s13428-017-0930-6
@@ -404,6 +419,7 @@ def load_engelthaler17():
 	return engelthaler17
 	#raise NotImplementedError
 
+# Did't use
 def load_palogiannidi16():
 	df=pd.read_csv(cs.palogiannidi16)
 	for var in ['Valence', 'Arousal', 'Dominance']:
