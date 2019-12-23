@@ -1,6 +1,6 @@
 import pandas as pd
 from main import data
-from framework.util import save_tsv
+from EmoMap.coling18.framework.util import save_tsv
 df=pd.DataFrame(columns=['N'])
 
 for s in data.SETTINGS:

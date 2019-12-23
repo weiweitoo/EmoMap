@@ -1,11 +1,11 @@
 import pandas as pd
 from main.data import BE5, VAD, VA
-from framework.prepare_data import load_anew99, load_warriner13,\
+from EmoMap.coling18.framework.prepare_data import load_anew99, load_warriner13,\
 	load_stadthagen16, load_stadthagen17, load_hinojosa16,\
 	load_schmidtke14, load_vo09, load_imbir16, load_riegel15,\
 	load_redondo07, load_ferre16
 
-from framework.util import compute_isr, save_tsv
+from EmoMap.coling18.framework.util import compute_isr, save_tsv
 
 
 data={

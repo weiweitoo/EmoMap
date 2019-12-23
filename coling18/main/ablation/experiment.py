@@ -1,11 +1,11 @@
 import numpy as np 
 
 import pandas as pd 
-import framework.constants as cs 
-import framework.prepare_data as data
-import framework.util as util
+import EmoMap.coling18.framework.constants as cs 
+import EmoMap.coling18.framework.prepare_data as data
+import EmoMap.coling18.framework.util as util
 import scipy.stats as st
-import framework.models
+import EmoMap.coling18.framework.models
 from  sklearn.linear_model import LinearRegression as LM
 from sklearn.neighbors import KNeighborsRegressor as KNN
 import os
@@ -16,9 +16,9 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation
 import keras.backend as K
 
-from main.data import SETTINGS, VAD, BE5, DIRECTIONS
+from EmoMap.coling18.main.data import SETTINGS, VAD, BE5, DIRECTIONS
 
-from framework.util import average_subdirs
+from EmoMap.coling18.framework.util import average_subdirs
 
 
 INFO='''

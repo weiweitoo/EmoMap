@@ -1,6 +1,6 @@
 import pandas as pd
 from main.data import VAD, BE5
-from framework import util
+from EmoMap.coling18.framework import util
 
 Directions=['be2vad', 'vad2be']
 

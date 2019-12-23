@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd 
-from main.data import SETTINGS, IN_PAPER_NAMES
-from framework.util import get_average_result_from_df, save_tsv, no_zeros_formatter, load_tsv
+from EmoMap.coling18.main.data import SETTINGS, IN_PAPER_NAMES
+from EmoMap.coling18.framework.util import get_average_result_from_df, save_tsv, no_zeros_formatter, load_tsv
 import datetime
 import scipy.stats as st
 

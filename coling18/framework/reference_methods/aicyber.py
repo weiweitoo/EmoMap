@@ -3,8 +3,8 @@ from sklearn.ensemble import AdaBoostRegressor as adaboost
 import pandas as pd
 import scipy.stats as st
 import numpy as np
-from framework import util
-from framework.models import Word_Model
+from EmoMap.coling18.framework import util
+from EmoMap.coling18.framework.models import Word_Model
 
 
 '''

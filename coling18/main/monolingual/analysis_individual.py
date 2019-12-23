@@ -1,9 +1,9 @@
 import numpy as np
 import pandas as pd 
-from main.data import SETTINGS, IN_PAPER_NAMES, VAD, BE5, SHORT_COLUMNS
-from framework.util import get_average_result_from_df, save_tsv, no_zeros_formatter, load_tsv
+from EmoMap.coling18.main.data import SETTINGS, IN_PAPER_NAMES, VAD, BE5, SHORT_COLUMNS
+from EmoMap.coling18.framework.util import get_average_result_from_df, save_tsv, no_zeros_formatter, load_tsv
 import datetime
-import framework.util as util
+import EmoMap.coling18.framework.util as util
 
 directions=['be2vad', 'vad2be']
 

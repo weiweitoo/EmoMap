@@ -1,14 +1,14 @@
 import numpy as np 
 
 import pandas as pd 
-import framework.constants as cs 
-import framework.prepare_data as data
-import framework.util as util
+import EmoMap.coling18.framework.constants as cs 
+import EmoMap.coling18.framework.prepare_data as data
+import EmoMap.coling18.framework.util as util
 import scipy.stats as st
-import framework.models
+import EmoMap.coling18.framework.models
 from  sklearn.linear_model import LinearRegression as LM
 from sklearn.neighbors import KNeighborsRegressor as KNN
-from framework.reference_methods.aicyber import MLP_Ensemble
+from EmoMap.coling18.framework.reference_methods.aicyber import MLP_Ensemble
 
 from keras.optimizers import Adam
 from keras.models import Sequential
