@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import KFold
 from sklearn.base import clone
-from framework import util
+from EmoMap.coling18.framework import util
 import os
 import math
 

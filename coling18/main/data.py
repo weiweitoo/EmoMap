@@ -1,6 +1,6 @@
-import framework.prepare_data as data
-import framework.models
-from framework.reference_methods.aicyber import MLP_Ensemble
+import EmoMap.coling18.framework.prepare_data as data
+import EmoMap.coling18.framework.models
+from EmoMap.coling18.framework.reference_methods.aicyber import MLP_Ensemble
 from keras.optimizers import Adam
 
 

@@ -1,11 +1,11 @@
 import os
 import numpy as np
 import pandas as pd
-import framework.constants as cs
+import EmoMap.coling18.framework.constants as cs
 from io import StringIO
-from framework.representations.embedding import Embedding
-from framework.util import scaleInRange
-from framework.util import drop_duplicates
+from EmoMap.coling18.framework.representations.embedding import Embedding
+from EmoMap.coling18.framework.util import scaleInRange
+from EmoMap.coling18.framework.util import drop_duplicates
 
 heads_vad = ['Word','Valence','Arousal','Dominance']
 heads_be5 = ['Word','Joy','Anger','Sadness','Fear','Disgust']
