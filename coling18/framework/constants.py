@@ -55,23 +55,23 @@ palogiannidi16=resources+'Palogiannidi16_greek_affective_lexicon/greek_affective
 #==================================================#
 
 google_news_embeddings=resources+'GoogleNews-SGNS-Vectors/GoogleNews-vectors-negative300.bin'
-fasttext_wikipedia_en='/data/data_buechel/fasttext_vectors/wikipedia/wiki.en.vec'
+fasttext_wikipedia_en=resources+'fasttext_vectors/wikipedia/wiki.en.vec'
 
 facebook_fasttext_wikipedia={
-	'english':'/data/data_buechel/fasttext_vectors/wikipedia/wiki.en.vec',
-	'german':'/data/data_buechel/fasttext_vectors/wikipedia/wiki.de.vec',
-	'spanish':'/data/data_buechel/fasttext_vectors/wikipedia/wiki.es.vec',
-	'polish':'/data/data_buechel/fasttext_vectors/wikipedia/wiki.pl.vec',
-	'french':'/data/data_buechel/fasttext_vectors/wikipedia/wiki.fr.vec',
-	'italian':'/data/data_buechel/fasttext_vectors/wikipedia/wiki.it.vec',
-	'portuguese':'/data/data_buechel/fasttext_vectors/wikipedia/wiki.pt.vec',
-	'dutch':'/data/data_buechel/fasttext_vectors/wikipedia/wiki.nl.vec',
-	'swedish':'/data/data_buechel/fasttext_vectors/wikipedia/wiki.sv.vec',
-	'finnish':'/data/data_buechel/fasttext_vectors/wikipedia/wiki.fi.vec',
-	'chinese':'/data/data_buechel/fasttext_vectors/wikipedia/wiki.zh.vec',
-	'indonesian':'/data/data_buechel/fasttext_vectors/wikipedia/wiki.id.vec'
+	'english':resources+'fasttext_vectors/wikipedia/wiki.en.vec',
+	'german':resources+'fasttext_vectors/wikipedia/wiki.de.vec',
+	'spanish':resources+'fasttext_vectors/wikipedia/wiki.es.vec',
+	'polish':resources+'fasttext_vectors/wikipedia/wiki.pl.vec',
+	'french':resources+'fasttext_vectors/wikipedia/wiki.fr.vec',
+	'italian':resources+'fasttext_vectors/wikipedia/wiki.it.vec',
+	'portuguese':resources+'fasttext_vectors/wikipedia/wiki.pt.vec',
+	'dutch':resources+'fasttext_vectors/wikipedia/wiki.nl.vec',
+	'swedish':resources+'fasttext_vectors/wikipedia/wiki.sv.vec',
+	'finnish':resources+'fasttext_vectors/wikipedia/wiki.fi.vec',
+	'chinese':resources+'fasttext_vectors/wikipedia/wiki.zh.vec',
+	'indonesian':resources+'fasttext_vectors/wikipedia/wiki.id.vec'
 }
 
-facebook_fasttext_common_crawl='/data/data_buechel/fasttext_vectors/common_crawl/crawl-300d-2M.vec.zip'
+facebook_fasttext_common_crawl=resources+'fasttext_vectors/common_crawl/crawl-300d-2M.vec.zip'
 
-sedoc17_embeddings='/data/data_buechel/sedoc_eacl_2017_embeddings/embeddings_sedoc_eacl17.txt'
+sedoc17_embeddings=resources+'sedoc_eacl_2017_embeddings/embeddings_sedoc_eacl17.txt'
