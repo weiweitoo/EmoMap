@@ -440,7 +440,8 @@ def load_palogiannidi16():
 
 ####################  Bi-representational data sets  #########################
 def get_english_anew():
-	return load_anew99().join(load_stevenson07(), how='inner')
+	return load_anew10().join(load_stevenson07(), how='inner')
+	# return load_anew99().join(load_stevenson07(), how='inner')
 
 def get_english_warriner():
 	return load_warriner13().join(load_stevenson07(), how='inner')
