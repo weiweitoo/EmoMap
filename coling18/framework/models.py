@@ -217,7 +217,173 @@ class Mapping_Model(Word_Model):
 		# print(performance)
 		perf_mean=pd.Series(performance.mean(axis=0))
 		return perf_mean
-			
+
+
+
+class Attention_Mapping_Model(Word_Model):
+	'''
+	Wrapper for Keras based MLP
+	'''
+
+	def __init__(	self,
+					layers, #including input and output layer
+					activation,
+					dropout_hidden,
+					batch_size,
+					optimizer,
+					source_lexicon,	# Emotion lexicon with entries in the 
+								 	# source representation. Must also cover 
+								 	# the entries in the test set.
+					verbose=0,
+					epochs=None,
+					train_steps=None,
+					kind='joint', #either "joint" or "separate"
+					):
+		'''
+		ARGS
+			batch_generation		either 'serial' or 'radomreplace'
+			epochs					Will be interpreted as training steps
+									if batch_generation is set to "randomreplace"
+									WATCH OUT!!!
+		'''
+		self.targets=None
+		self.source_lexicon=source_lexicon
+		self.epochs=epochs
+		self.train_steps=train_steps #will "round up" to make full epochs
+		self.batch_size=batch_size
+		self.verbose=verbose
+		self.layers=layers
+		self.activation=activation
+		self.dropout_hidden=dropout_hidden
+		self.optimizer=optimizer
+		self.kind=kind
+		self.kinds={'joint':self.__init_joint__, 'separate':self.__init_separate__}
+
+
+		assert  (epochs is not None) or (train_steps is not None), 'Either epochs or train_streps must be set.'
+		assert not( epochs is not None and train_steps is not None ), 'You cannot specify both epochs and train_steps.'
+
+		self.initialize()
+
+	def __init_separate__(self):
+		print("attention separate")
+		input_layer = Input(shape=(self.layers[0],))
+		q  = tf.keras.layers.Dense(128, activation=tf.nn.relu, name="linear_q")(input_layer)
+		k  = tf.keras.layers.Dense(128, activation=tf.nn.relu, name="linear_k")(input_layer)
+		v  = tf.keras.layers.Dense(128, activation=tf.nn.relu, name="linear_v")(input_layer)
+
+		q_k_attention = tf.keras.layers.Attention(name="dot_product_attention")([q, k])
+		x = tf.keras.layers.Concatenate(name="concat")([v, q_k_attention])
+		x = tf.keras.layers.LayerNormalization(epsilon=1e-6, name="layer_normalization")(x)
+		x = tf.keras.layers.Dense(128, activation=tf.nn.relu, name="dense")(x)
+
+		top_layer=[]
+		for i in range(self.layers[-1]):
+			curr_layers=[input_layer]
+			for j in range(len(self.layers)-2):
+				curr_layers.append(Dense(self.layers[j+1])(curr_layers[-1]))
+				curr_layers.append(Activation(self.activation)(curr_layers[-1]))
+				curr_layers.append(Dropout(rate=self.dropout_hidden)(curr_layers[-1]))
+			#last dense layer
+			top_layer.append(Dense(1)(curr_layers[-1]))
+		out=Concatenate()(top_layer)
+		self.model=keras.models.Model(inputs=[input_layer], outputs=out)
+		self.model.compile(optimizer=self.optimizer, loss='mse', metrics=[pearson])
+
+	def __init_joint__(self):
+		print("attention joint")
+		self.model=keras.models.Sequential()
+		self.model.add(Dense(self.layers[1], input_dim=self.layers[0]))
+		i=1
+		while i<len(self.layers)-1:
+			self.model.add(Activation(self.activation))
+			self.model.add(Dropout(rate=self.dropout_hidden))
+			self.model.add(Dense(self.layers[i+1]))
+			i+=1
+		self.model.compile(optimizer=self.optimizer, loss='mse', metrics=[pearson])
+
+	def initialize(self):
+		self.kinds[self.kind]()
+
+	def __feature_extraction__(self, words):
+		return np.array([self.source_lexicon.loc[word] for word in words])
+
+	def fit(self, words, labels):
+		self.targets=labels.columns
+		features=self.__feature_extraction__(words)
+
+
+
+		if bool(self.epochs)==True:
+			if self.verbose >0:
+				print('Using epoch wise training')
+			self.model.fit(	features, labels, 
+							epochs=self.epochs,
+							batch_size=self.batch_size,
+							verbose=self.verbose)
+		elif bool(self.train_steps)==True:
+			if self.verbose > 0:
+				print('Using step-wise training.')
+			bs=util.Serial_Batch_Gen(	features=pd.DataFrame(features), 
+												labels=pd.DataFrame(labels),
+												batch_size=self.batch_size)
+			for i_step in range(self.train_steps):
+				if i_step%100==0 and self.verbose>0:
+					print('Now at training step: '+str(i_step))
+				batch_features,batch_labels=bs.next()
+				self.model.train_on_batch(batch_features,batch_labels)
+
+		else:
+			raise ValueError('Neither epochs nore train_steps are specified!')
+
+
+	def predict(self,words):
+		features=self.__feature_extraction__(words)
+		preds=self.model.predict(features)
+		return preds
+
+	def lexicon_creation(self, words, features):
+		preds=self.model.predict(features)
+		return pd.DataFrame(preds, index=words, columns=self.targets)
+
+
+	def test_at_steps(self, words, labels, test_split, test_steps, iterations):
+		# self.targets=labels.columns
+		# step 1 feature extraction
+
+		assert bool(self.train_steps)==True, 'Training must be specified by the number of training steps'
+
+		features=self.__feature_extraction__(words)
+		labels=pd.DataFrame(labels, index=words)
+
+
+		performance=pd.DataFrame(index=np.arange(1,iterations+1))
+		performance.index.names=['iteration']
+		for i in range(iterations):
+			number_of_iteration=i+1
+			# print(number_of_iteration)
+			features_train, features_test,\
+				labels_train,\
+				labels_test=util.train_test_split(
+					features, labels, test_size=test_split)
+			bs=util.Serial_Batch_Gen(	features=pd.DataFrame(features_train), 
+												labels=pd.DataFrame(labels_train),
+												batch_size=self.batch_size)
+
+			for i_steps in range(self.train_steps):
+				total_steps=i_steps+1
+				batch_features,batch_labels=bs.next()
+				self.model.train_on_batch(batch_features,batch_labels)
+				if total_steps in test_steps:
+					preds=pd.DataFrame(self.model.predict(features_test), columns=list(labels))
+					# print(preds)
+					perf=np.mean(util.eval(labels_test, preds))
+					performance.loc[number_of_iteration, total_steps]=perf
+			# resets model
+			self.initialize()
+		# print(performance)
+		perf_mean=pd.Series(performance.mean(axis=0))
+		return perf_mean
 
 
 class Evaluator():
