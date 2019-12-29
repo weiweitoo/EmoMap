@@ -222,8 +222,8 @@ def load_kanske10():
 
 
 def load_vo09():
-	df=pd.read_csv(cs.vo09, sep=',')
-	# df=pd.read_excel(cs.vo09)
+	# df=pd.read_csv(cs.vo09, sep=',')
+	df=pd.read_excel(cs.vo09)
 	df=df[['WORD_LOWER', 'EMO_MEAN','AROUSAL_MEAN']]
 	df.columns=['Word', 'Valence', 'Arousal']
 	df.set_index('Word', inplace=True)
