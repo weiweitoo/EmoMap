@@ -17,7 +17,7 @@ The script "prepare_data.py" is designed to do all these modification steps for
 you.
 '''
 
-anew10 = resources+'ANEW2010/ANEW 2010/ANEW2010All.txt'
+# anew10 = resources+'ANEW2010/ANEW 2010/ANEW2010All.txt'
 anew10 = resources+'ANEW1999/ANEW1999.csv'
 anew99=resources+'ANEW1999/ANEW1999.csv'
 stevenson07 = resources+'Stevenson-BRM-2007- Emo cats for ANEW/Stevenson(2007)-ANEW_emotional_categories.xls'
