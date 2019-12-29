@@ -16,7 +16,7 @@ heads_be5 = ['Word','Joy','Anger','Sadness','Fear','Disgust']
 
 # did't use
 def load_anew10():
-	anew = pd.read_csv(cs.anew10, sep = '\t')
+	anew = pd.read_csv(cs.anew10, sep = ',')
 	anew = anew[['Word','ValMn','AroMn','DomMn']]
 	anew.columns = ['Word', 'Valence', 'Arousal',
 				   'Dominance']
