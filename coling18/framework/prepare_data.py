@@ -448,11 +448,10 @@ def get_english_warriner():
 	return load_warriner13().join(load_stevenson07(), how='inner')
 
 
-#deprecated
 def get_spanish_redondo():
 	return load_redondo07().join(load_ferre16(), how='inner')
 
-
+#deprecated
 def get_spanish_ferre():
 	va=pd.concat([load_redondo07(), load_guasch15()])
 	df=va.join(load_ferre16(), how='inner')
