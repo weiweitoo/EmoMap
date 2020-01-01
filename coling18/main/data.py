@@ -37,12 +37,16 @@ class Setting():
 		self.emo_type = emo_type
 
 	def get_left(self):
+		if(self.left is None or self.right is None):
+			return None
 		inner = self.load_data()
 		left = self.left().join(self.right(), how='left')
 		vad_only = left[~left.index.isin(list(inner.index))]
 		return vad_only[self.emo_type]
 
 	def get_right(self):
+		if(self.left is None or self.right is None):
+			return None
 		inner = self.load_data()
 		right = self.left().join(self.right(), how='right')
 		be_only = right[~right.index.isin(list(inner.index))]
@@ -70,14 +74,14 @@ SETTINGS = [
 	Setting('Spanish_Hinojosa',
 			'spanish',
 			data.get_spanish_hinojosa,
-			data.load_hinojosa16,
-			data.load_hinojosa16,
+			None,
+			None,
 			VAD),
 	Setting('Spanish_Stadthagen',
 			'spanish',
 			data.get_spanish_stadthagen,
-			data.load_stadthagen17,
-			data.load_stadthagen17,
+			None,
+			None,
 			VA),
 	Setting('German_BAWL',
 			'german',
